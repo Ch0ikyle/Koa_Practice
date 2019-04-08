@@ -1,0 +1,27 @@
+{
+  "name": "koa_practice",
+  "version": "1.0.0",
+  "description": "Koa.Js practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ch0ikyle/Koa_Practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ch0ikyle/Koa_Practice/issues"
+  },
+  "homepage": "https://github.com/Ch0ikyle/Koa_Practice#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "koa": "^2.7.0",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
