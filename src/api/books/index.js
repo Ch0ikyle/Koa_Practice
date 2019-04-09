@@ -1,17 +1,12 @@
 import Router from 'koa-router';
+
 const books = new Router();
+import {list, create, deleted, replace, update} from './books.controller';
 
-const handler =(ctx, next) => {
-    ctx.body = `${ctx.request.method} ${ctx.request.path}`;
-}
-
-// books.get('/', (ctx, next) => {
-//     ctx.body = `GET ${ctx.request.path}`;
-// });
-books.get('/', handler);
-books.post('/', handler);
-books.delete('/', handler);
-books.put('/', handler);
-books.patch('/', handler);
+books.get('/', list);
+books.post('/', create);
+books.delete('/', deleted);
+books.put('/', replace);
+books.patch('/', update);
 
 module.exports = books;
