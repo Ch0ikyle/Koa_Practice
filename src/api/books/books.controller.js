@@ -1,8 +1,19 @@
 import Book from 'models/book';
 
 // import { } 를 사용하여 가져오기 위해 export 방식을 기존 코드와 다르게 변경
-export const list = (ctx) => {
-    ctx.body = 'listed';
+export const list = async (ctx) => {
+    let books;
+
+    try {
+        books = await Book.find()
+            .sort({_id: -1})
+            .limit(3)
+            .exec();
+    } catch (e) {
+        return ctx.throw(500, e);
+    }
+
+    ctx.body = books;
 };
 
 export const create = async (ctx) => {
@@ -14,6 +25,8 @@ export const create = async (ctx) => {
         price, 
         tags 
     } = ctx.request.body;
+
+    console.log(`${title}, ${authors}, ${publishedDate}, ${price}, ${tags}`);
 
     // Book 인스턴스를 생성합니다
     const book = new Book({
@@ -39,6 +52,23 @@ export const create = async (ctx) => {
 
     // 저장한 결과를 반환합니다.
     ctx.body = book;
+};
+
+export const get = async (ctx) => {
+    const { id } = ctx.params;
+
+    let book;
+
+    try{
+        book = await Book.findById(id).exec();
+    } catch (e) {
+        return ctx.throw(500, e);
+    }
+
+    if(!book) {
+        ctx.status = 404;
+        ctx.body = { message : 'book not found'};
+    }
 };
 
 export const deleted = (ctx) => {
