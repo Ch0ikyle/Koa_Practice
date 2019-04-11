@@ -89,15 +89,25 @@ export const deleted = async (ctx) => {
             ctx.status = 400;
             return;
         }
-    }
+    } 
 
     ctx.status = 204;
 };
 
-export const replace = (ctx) => {
-    ctx.body = 'replaced';
+export const replace = async (ctx) => { 
+    let book;
+
+    try {
+        book = await Book.findByIdAndUpdate(id, ctx.request.body, {
+            upsert : true,
+            new : true
+        });
+    }catch (e){
+        return ctx.throw(500, e);
+    }
+    ctx.body = book;
 };
 
 export const update = (ctx) => {
     ctx.body = 'updated';
-};
+};  

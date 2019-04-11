@@ -1,14 +1,32 @@
-export const deleted = async (ctx) => {
+import Joi from 'joi';
+import mongoose from 'mongoose';
+
+const ObjectId = mongoose.Types.ObjectId
+
+export const replace = async (ctx) => {
     const { id } = ctx.params;
 
-    try {
-        await Book.findByIdAndRemove(id).exec();
-    } catch (e) {
-        if(e.name === 'CastError') {
-            ctx.status = 400;
-            return;
-        }
+    if(!ObjectId.isValid(id)){
+        ctx.status = 400;
+        return;
     }
 
-    ctx.status = 204;
+    const schema = Joi.object().keys({
+        title : Joi.string().required(),
+        authors : Joi.string().items(Joi.object().keys({
+            name : Joi.string().required(),
+            email : Joi.string().email().required()
+        })),
+        publishedDate : Joi.date().required(),
+        price: Joi.number().required(),
+        tags : Joi.array().items((Joi.string()).required())
+    });
+
+    const result = Joi.validate(ctx.request.body, schema);
+
+    if(result.error){
+        ctx.status = 400;
+        ctx.body = result.error;
+        return;
+    }
 }
