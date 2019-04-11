@@ -62,17 +62,36 @@ export const get = async (ctx) => {
     try{
         book = await Book.findById(id).exec();
     } catch (e) {
+        if(e.name === 'CastError'){
+            ctx.status = 400;
+            return;
+        }
         return ctx.throw(500, e);
     }
 
     if(!book) {
         ctx.status = 404;
         ctx.body = { message : 'book not found'};
+        return;
     }
+
+    ctx.body = book;
 };
 
-export const deleted = (ctx) => {
-    ctx.body = 'deleted';
+export const deleted = async (ctx) => {
+    const { id } = ctx.params;
+
+    try {
+        await Book.findOneAndDelete().exec();
+    } catch (e) {
+        if(e.name === 'CastError'){
+            console.log('nope');
+            ctx.status = 400;
+            return;
+        }
+    }
+
+    ctx.status = 204;
 };
 
 export const replace = (ctx) => {
