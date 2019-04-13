@@ -21,7 +21,7 @@ export const list = async (ctx) => {
 export const create = async (ctx) => {
      // request body 에서 값들을 추출합니다
      const { 
-        title, 
+        title,  
         authors, 
         publishedDate, 
         price, 
