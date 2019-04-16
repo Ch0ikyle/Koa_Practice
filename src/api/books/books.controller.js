@@ -23,7 +23,7 @@ export const create = async (ctx) => {
      const { 
         title,  
         authors, 
-        publishedDate, 
+        publishedDate,  
         price, 
         tags 
     } = ctx.request.body;

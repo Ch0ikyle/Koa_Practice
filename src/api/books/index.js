@@ -12,4 +12,4 @@ books.delete('/:id', deleted);
 books.put('/:id', replace);
 books.patch('/:id', update);
 
-module.exports = books;
+export default books;
