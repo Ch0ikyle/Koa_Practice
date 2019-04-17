@@ -1,7 +1,5 @@
 import Book from 'models/book';
 
-//asd
-//asdfqer
 // import { } 를 사용하여 가져오기 위해 export 방식을 기존 코드와 다르게 변경
 export const list = async (ctx) => {
     let books;
