@@ -54,6 +54,11 @@ Account.statics.localRegister = ({username, email, password}) => {
     });
 
     return account.save();
-}
+};
+
+Account.methods.validatePassword = (password) => {
+    const hashed = hash(password);
+    return this.password === hashed;
+};
 
 export default mongoose.model('Account', Account);
